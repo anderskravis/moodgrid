@@ -76,6 +76,12 @@ flex: 1;
         transform: scale(1.02);
     } 
 
+    @media all and (min-width: 2000px) {
+        font-size: 1.8rem;
+        max-width: none;
+    }
+
+
 }
 
 .red {
