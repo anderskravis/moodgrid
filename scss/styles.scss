@@ -70,18 +70,19 @@ flex: 1;
 }
 
 .selected {
-    background: black !important;
+    background: black;
     color: white;
-    transform: scale(1.16);
+    transform: scale(1.12);
     z-index: 2;
-
     &::after{
-        content: "👋";
-        font-size: 8px;
+        content: attr(data-content);
+        color:black;
+        font-size: 10px;
         background-color: white;
         border: 1px solid black;
         width: 16px;
         height: 16px;
+        line-height: 16px;
         border-radius: 99px;
         font-weight: bold;
         position: absolute;

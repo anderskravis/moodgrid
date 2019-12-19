@@ -179,12 +179,22 @@
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script>
+    var emoji = ['🤖', '👾', '🦄', '👋', '🦊', '🐶', '🐨', '🐼', '🐲', '🐙'];
     $(document).ready(function(){
-    $(".mood").click(function(){
-        $(this).toggleClass('selected');
+    var i = 0;
+        $(".mood").click(function(){
+            var random_emoji = emoji[i];
+            
+            $(this).toggleClass('selected'),
+            $(this).attr('data-content',random_emoji);
+            
+            if(i<9) { i++ } else {  
+            i = Math.floor(Math.random() * emoji.length);
+            
+            };
+        });
     });
-    
-    });
+
 </script>
 
 
