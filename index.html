@@ -62,18 +62,18 @@
 
     <div class="mood-quadrant"> 
         <div class="mood-row"> 
-            <div class="mood yellow">Hyper</div>
-            <div class="mood yellow">Cheerful</div>
-            <div class="mood yellow">Motivated</div>
-            <div class="mood yellow">Inspired</div>
-            <div class="mood yellow">Elated</div>
-        </div>
-        <div class="mood-row"> 
             <div class="mood yellow">Suprised</div>
             <div class="mood yellow">Upbeat</div>
             <div class="mood yellow">Festive</div>
             <div class="mood yellow">Exhilarated</div>
             <div class="mood yellow">Ecstatic</div>
+        </div>
+        <div class="mood-row"> 
+            <div class="mood yellow">Hyper</div>
+            <div class="mood yellow">Cheerful</div>
+            <div class="mood yellow">Motivated</div>
+            <div class="mood yellow">Inspired</div>
+            <div class="mood yellow">Elated</div>
         </div>
         <div class="mood-row"> 
                 <div class="mood yellow">Hyper</div>
@@ -169,13 +169,23 @@
                     <div class="mood green">Suprised</div>
                     <div class="mood green">Upbeat</div>
                     <div class="mood green">Festive</div>
-                    <div class="mood green">Exhilarated</div>
+                    <div id="mood" class="mood green">Exhilarated</div>
                     <div class="mood green">Ecstatic</div>
             </div>
         </div>
 
 </section>
 
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+    $(".mood").click(function(){
+        $(this).toggleClass('selected');
+    });
+    
+    });
+</script>
 
 
 
