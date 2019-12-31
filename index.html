@@ -236,17 +236,26 @@
 </script> -->
 
 <script>
-    $(document).ready(function(){
-    var counter = 1;
 
+  var emoji = ['🤖', '👾', '🦄', '👋', '🦊', '🐶', '🐨', '🐼', '🐲', '🐙'];
+
+    $(document).ready(function(){
+      var i = 0;
     $(".mood").click(function(e){
+      var random_emoji = emoji[i];
 
       if (e.shiftKey) {
         $(this).removeClass('selected')
      }  else {
 
         $(this).addClass('selected'),
-        $(this).attr('data-content',counter++);
+        $(this).attr('data-content',random_emoji);
+
+        if(i<9) { i++ } else {
+        i = Math.floor(Math.random() * emoji.length);
+
+        };
+
       }
     });
   });
