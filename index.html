@@ -171,8 +171,8 @@
                     <div class="mood green">Balanced</div>
                 </div>
             <div class="mood-row">
-                    <div class="mood green">Mellow</div>
-                    <div class="mood green">Thoughtful</div>
+                    <div data-clickcount=0 class="mood green">Mellow</div>
+                    <div data-clickcount="0" class="mood green">Thoughtful</div>
                     <div class="mood green">Peaceful</div>
                     <div class="mood green">Comfy</div>
                     <div class="mood green">Carefree</div>
@@ -243,16 +243,21 @@
       var i = 0;
     $(".mood").click(function(e){
       var random_emoji = emoji[i];
-
       if (e.shiftKey) {
-        $(this).removeClass('selected')
-     }  else {
-
+          $(this).removeClass('selected'),
+          $(this).data().clickcount = 0;
+       }  else {
+         if ($(this).hasClass('selected')) {
+           $(this).data().clickcount++,
+           $(this).attr('data-clickcount',$(this).data().clickcount);
+           $(this).attr('data-content',$(this).data().clickcount);
+         }
+           else {
         $(this).addClass('selected'),
         $(this).attr('data-content',random_emoji);
-
-        if(i<9) { i++ } else {
-        i = Math.floor(Math.random() * emoji.length);
+          if(i<9) { i++ } else {
+            i = Math.floor(Math.random() * emoji.length);
+          };
 
         };
 
