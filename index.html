@@ -211,7 +211,7 @@
          if ($(this).hasClass('selected')) {
            $(this).data().clickcount++,
            $(this).attr('data-clickcount',$(this).data().clickcount);
-           $(this).attr('data-content',$(this).data().clickcount);
+           $(this).attr('data-content', random_emoji + "+" + $(this).data().clickcount);
          }
            else {
         $(this).addClass('selected'),

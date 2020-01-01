@@ -95,9 +95,8 @@ body {
     font-size: 10px;
     background-color: white;
     border: 1px solid black;
-    width: 16px;
-    height: 16px;
     line-height: 16px;
+    padding: 2px 4px;
     border-radius: 99px;
     font-weight: bold;
     position: absolute;
