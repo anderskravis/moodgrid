@@ -211,17 +211,16 @@
          if ($(this).hasClass('selected')) {
            $(this).data().clickcount++,
            $(this).attr('data-clickcount',$(this).data().clickcount);
-           $(this).attr('data-content', random_emoji + "+" + $(this).data().clickcount);
+           $(this).attr('data-content', $(this).data().emoji + "+" + $(this).data().clickcount);
          }
            else {
         $(this).addClass('selected'),
-        $(this).attr('data-content',random_emoji);
-          if(i<9) { i++ } else {
-            i = Math.floor(Math.random() * emoji.length);
-          };
-
+        $(this).attr('data-emoji',random_emoji);
+        $(this).attr('data-content',$(this).data().emoji);
+        if(i<9) { i++ } else {
+          i = Math.floor(Math.random() * emoji.length);
         };
-
+        };
       }
     });
   });
