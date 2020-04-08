@@ -2,240 +2,217 @@
 <html class="no-js" lang="">
 
 <head>
-  <meta charset="utf-8">
-  <title>The Mood Meter</title>
-  <meta name="description" content="Mood Meter">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>The Mood Meter</title>
+    <meta name="description" content="Mood Meter">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="scss/styles.css">
-  <meta name="theme-color" content="#fafafa">
+    <link rel="stylesheet" href="scss/styles.css">
+    <meta name="theme-color" content="#fafafa">
 
-  <link href="https://fonts.googleapis.com/css?family=Overlock:900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overlock:900&display=swap" rel="stylesheet">
 
 
 </head>
 
 <body>
-  <!--[if IE]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->
-  <!-- Add your site or application content here -->
+    <!--[if IE]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+        <!-- Add your site or application content here -->
 
 
-<section class="top">
-          <h1>The Mood Meter</h1>
-</section>
+        <section class="top">
+            <h1>
+                The Mood Meter
+            </h1>
+            <button id="toggleTips">Tips</button>
+        </section>
 
-<div class="container">
-
-<section class="mood-chart">
-
-    <div class="mood-quadrant">
-        <div class="mood-row">
-            <div data-clickcount="0" class="mood red">Enraged</div>
-            <div data-clickcount="0" class="mood red">Panicked</div>
-            <div data-clickcount="0" class="mood red">Stressed</div>
-            <div data-clickcount="0" class="mood red">Jittery</div>
-            <div data-clickcount="0" class="mood red">Shocked</div>
-        </div>
-        <div class="mood-row">
-            <div data-clickcount="0" class="mood red">Livid</div>
-            <div data-clickcount="0" class="mood red">Furious</div>
-            <div data-clickcount="0" class="mood red">Frustrated</div>
-            <div data-clickcount="0" class="mood red">Tense</div>
-            <div data-clickcount="0" class="mood red">Stunned</div>
-        </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood red">Fuming</div>
-                <div data-clickcount="0" class="mood red">Frightened</div>
-                <div data-clickcount="0" class="mood red">Angry</div>
-                <div data-clickcount="0" class="mood red">Nervous</div>
-                <div data-clickcount="0" class="mood red">Restless</div>
-            </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood red">Anxious</div>
-                <div data-clickcount="0" class="mood red">Apprehensive</div>
-                <div data-clickcount="0" class="mood red">Worried</div>
-                <div data-clickcount="0" class="mood red">Irritated</div>
-                <div data-clickcount="0" class="mood red">Annoyed</div>
-            </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood red">Repulsed</div>
-                <div data-clickcount="0" class="mood red">Troubled</div>
-                <div data-clickcount="0" class="mood red">Concerned</div>
-                <div data-clickcount="0" class="mood red">Uneasy</div>
-                <div data-clickcount="0" class="mood red">Peeved</div>
-        </div>
-    </div>
-
-    <div class="mood-quadrant">
-        <div class="mood-row">
-            <div data-clickcount="0" class="mood yellow">Suprised</div>
-            <div data-clickcount="0" class="mood yellow">Upbeat</div>
-            <div data-clickcount="0" class="mood yellow">Festive</div>
-            <div data-clickcount="0" class="mood yellow">Exhilarated</div>
-            <div data-clickcount="0" class="mood yellow">Ecstatic</div>
-        </div>
-        <div class="mood-row">
-            <div data-clickcount="0" class="mood yellow">Hyper</div>
-            <div data-clickcount="0" class="mood yellow">Cheerful</div>
-            <div data-clickcount="0" class="mood yellow">Motivated</div>
-            <div data-clickcount="0" class="mood yellow">Inspired</div>
-            <div data-clickcount="0" class="mood yellow">Elated</div>
-        </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood yellow">Energized</div>
-                <div data-clickcount="0" class="mood yellow">Lively</div>
-                <div data-clickcount="0" class="mood yellow">Enthusiastic</div>
-                <div data-clickcount="0" class="mood yellow">Optimistic</div>
-                <div data-clickcount="0" class="mood yellow">Excited</div>
-            </div>
-        <div class="mood-row">
-            <div data-clickcount="0" class="mood yellow">Pleased</div>
-            <div data-clickcount="0" class="mood yellow">Happy</div>
-            <div data-clickcount="0" class="mood yellow">Focused</div>
-            <div data-clickcount="0" class="mood yellow">Proud</div>
-            <div data-clickcount="0" class="mood yellow">Thrilled</div>
-        </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood yellow">Pleasant</div>
-                <div data-clickcount="0" class="mood yellow">Joyful</div>
-                <div data-clickcount="0" class="mood yellow">Hopeful</div>
-                <div data-clickcount="0" class="mood yellow">Playful</div>
-                <div data-clickcount="0" class="mood yellow">Blissful</div>
-        </div>
-    </div>
-
-    <div class="mood-quadrant">
-        <div class="mood-row">
-            <div data-clickcount="0" class="mood blue">Disgusted</div>
-            <div data-clickcount="0" class="mood blue">Glum</div>
-            <div data-clickcount="0" class="mood blue">Disappointed</div>
-            <div data-clickcount="0" class="mood blue">Down</div>
-            <div data-clickcount="0" class="mood blue">Apathetic</div>
-        </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood blue">Pessimistic</div>
-                <div data-clickcount="0" class="mood blue">Morose</div>
-                <div data-clickcount="0" class="mood blue">Discouraged</div>
-                <div data-clickcount="0" class="mood blue">Sad</div>
-                <div data-clickcount="0" class="mood blue">Bored</div>
-        </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood blue">Alienated</div>
-                <div data-clickcount="0" class="mood blue">Miserable</div>
-                <div data-clickcount="0" class="mood blue">Lonely</div>
-                <div data-clickcount="0" class="mood blue">Disheartened</div>
-                <div data-clickcount="0" class="mood blue">Tired</div>
-            </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood blue">Despondent</div>
-                <div data-clickcount="0" class="mood blue">Depressed</div>
-                <div data-clickcount="0" class="mood blue">Sullen</div>
-                <div data-clickcount="0" class="mood blue">Exhausted</div>
-                <div data-clickcount="0" class="mood blue">Fatigued</div>
-        </div>
-        <div class="mood-row">
-                <div data-clickcount="0" class="mood blue">Despair</div>
-                <div data-clickcount="0" class="mood blue">Hopeless</div>
-                <div data-clickcount="0" class="mood blue">Desolate</div>
-                <div data-clickcount="0" class="mood blue">Spent</div>
-                <div data-clickcount="0" class="mood blue">Drained</div>
-        </div>
-    </div>
-
-    <div class="mood-quadrant">
-            <div class="mood-row">
-                <div data-clickcount="0" class="mood green">At Ease</div>
-                <div data-clickcount="0" class="mood green">Easygoing</div>
-                <div data-clickcount="0" class="mood green">Content</div>
-                <div data-clickcount="0" class="mood green">Loving</div>
-                <div data-clickcount="0" class="mood green">Fulfilled</div>
-            </div>
-            <div class="mood-row">
-                    <div data-clickcount="0" class="mood green">Calm</div>
-                    <div data-clickcount="0" class="mood green">Secure</div>
-                    <div data-clickcount="0" class="mood green">Satisfied</div>
-                    <div data-clickcount="0" class="mood green">Grateful</div>
-                    <div data-clickcount="0" class="mood green">Touched</div>
-            </div>
-            <div class="mood-row">
-                    <div data-clickcount="0" class="mood green">Relaxed</div>
-                    <div data-clickcount="0" class="mood green">Chill</div>
-                    <div data-clickcount="0" class="mood green">Restful</div>
-                    <div data-clickcount="0" class="mood green">Blessed</div>
-                    <div data-clickcount="0" class="mood green">Balanced</div>
-                </div>
-            <div class="mood-row">
-                    <div data-clickcount=0 class="mood green">Mellow</div>
-                    <div data-clickcount="0" class="mood green">Thoughtful</div>
-                    <div data-clickcount="0" class="mood green">Peaceful</div>
-                    <div data-clickcount="0" class="mood green">Comfy</div>
-                    <div data-clickcount="0" class="mood green">Carefree</div>
-            </div>
-            <div class="mood-row">
-                    <div data-clickcount="0" class="mood green">Sleepy</div>
-                    <div data-clickcount="0" class="mood green">Complacent</div>
-                    <div data-clickcount="0" class="mood green">Tranquil</div>
-                    <div data-clickcount="0" class="mood green">Cozy</div>
-                    <div data-clickcount="0" class="mood green">Serene</div>
-            </div>
+        <div class="container">
+            <section class="mood-chart"></section>
         </div>
 
-    </section>
+        <div class="tips">
+            <p>Tips:</p>
+            <ul>
+                <li>"Shift + Click" to remove a selection</li>
+                <li>"Ctrl" to highlight keyboard shortcuts values</li>
+                <li>
+                    "R", "Y", "B", "G" to focus on the respective quadrant, then:
+                    <ul>
+                        <li>type the number to select the respective mood</li>
+                        <li>press "-" and type the number to remove a selection on that mood</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
-    <p style="color: grey">Tip: shift+click to remove selection</p>
+        <script>
+            const emojis = ['🤖', '👾', '🦄', '👋', '🦊', '🐶', '🐨', '🐼', '🐲', '🐙'];
+            let emojiCount = 0;
+
+            document.querySelector('#toggleTips').addEventListener('click', () => {
+                document.querySelector('.tips').classList.toggle('show');
+            });
+
+            function resetMood(mood) {
+                mood.classList.remove('selected');
+                delete mood.dataset.clickcount;
+                delete mood.dataset.emoji;
+                delete mood.dataset.content;
+            }
+
+            function selectMood(mood, isReduce = false, isReset = false) {
+                mood.dataset.clickcount = isReduce
+                    ? parseInt(mood.dataset.clickcount|| 0) - 1
+                    : parseInt(mood.dataset.clickcount|| 0) + 1;
+
+                if (isReset || mood.dataset.clickcount <= 0) {
+                    resetMood(mood);
+                    return;
+                }
+
+                if (mood.classList.contains('selected')) {
+
+                    mood.dataset.content = `
+                        ${mood.dataset.emoji}
+                        ${mood.dataset.clickcount > 1 ? ` + ${mood.dataset.clickcount - 1}` : ''}
+                    `;
+                    return;
+                }
+
+                mood.classList.add('selected');
+                mood.dataset.emoji = emojis[emojiCount];
+                emojiCount = emojiCount + 1 >= emojis.length
+                    ? Math.floor(Math.random() * emojis.length)
+                    : (emojiCount + 1);
+
+                mood.dataset.content = mood.dataset.emoji;
+            }
+
+            function setQuadrant(keyValue) {
+                if (keyValue) {
+                    pressedQuadrant = keyValue;
+                    document.querySelector('.mood-chart').dataset.highlight = pressedQuadrant;
+                    return;
+                }
+
+                pressedQuadrant = null;
+                delete document.querySelector('.mood-chart').dataset.highlight;
+            }
+
+            function mountMoodMeter() {
+                const moods = {
+                    red: ['Enraged','Panicked','Stressed','Jittery','Shocked','Livid','Furious','Frustrated','Tense','Stunned','Fuming','Frightened','Angry','Nervous','Restless','Anxious','Apprehensive','Worried','Irritated','Annoyed','Repulsed','Troubled','Concerned','Uneasy','Peeved'],
+                    yellow: ['Suprised','Upbeat','Festive','Exhilarated','Ecstatic','Hyper','Cheerful','Motivated','Inspired','Elated','Energized','Lively','Enthusiastic','Optimistic','Excited','Pleased','Happy','Focused','Proud','Thrilled','Pleasant','Joyful','Hopeful','Playful','Blissful'],
+                    blue: ['Disgusted','Glum','Disappointed','Down','Apathetic','Pessimistic','Morose','Discouraged','Sad','Bored','Alienated','Miserable','Lonely','Disheartened','Tired','Despondent','Depressed','Sullen','Exhausted','Fatigued','Despair','Hopeless','Desolate','Spent','Drained'],
+                    green: ['At Ease','Easygoing','Content','Loving','Fulfilled','Calm','Secure','Satisfied','Grateful','Touched','Relaxed','Chill','Restful','Blessed','Balanced','Mellow','Thoughtful','Peaceful','Comfy','Carefree','Sleepy','Complacent','Tranquil','Cozy','Serene'],
+                };
+
+                Object.keys(moods).forEach(color => {
+                    const quadrant = document.createElement('div');
+                    quadrant.classList.add('mood-quadrant');
+
+                    moods[color].forEach((mood, index) => {
+                        const moodBtn = document.createElement('button');
+                        moodBtn.classList.add('mood', color);
+                        moodBtn.dataset.tip = `${color[0].toUpperCase()}${index + 1}`;
+                        moodBtn.textContent = mood;
+                        moodBtn.addEventListener('click', (e) => selectMood(e.target, e.shiftKey));
+                        moodBtn.addEventListener('keydown', (e) => {
+                            if (e.key === 'Delete') {
+                                resetMood(e.target);
+                            };
+
+                            if (e.key === 'Backspace' || e.key === '-') {
+                                selectMood(e.target, true);
+                            };
+                        });
+
+                        quadrant.append(moodBtn);
+                    });
+
+                    document.querySelector('.mood-chart').append(quadrant);
+                })
+            }
+
+            let pressedQuadrant = null;
+            let pressedNumber = null;
+            let timeoutId = null;
+            let setToReduce = false;
+
+            document.body.addEventListener('keydown', (e) => {
+                if (e.ctrlKey) {
+                    document.querySelector('.mood-chart').classList.add('show-tip');
+                }
+
+                if (['R', 'Y', 'B', 'G'].includes(e.key.toUpperCase())) {
+                    setQuadrant(e.key.toUpperCase())
+                }
+
+                if (pressedQuadrant && e.key === '-') {
+                    setToReduce = true;
+                }
+
+                if (pressedQuadrant && parseInt(e.key) <= 9) {
+                    pressedNumber = `${pressedNumber || ''}${e.key}`;
+
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                    }
+
+                    timeoutId = setTimeout(() => {
+                        const mood = document.querySelector(`[data-tip=${pressedQuadrant}${pressedNumber}]`);
+
+                        if (setToReduce) {
+                            selectMood(mood, true);
+                            setToReduce = false;
+                        } else {
+                            selectMood(mood);
+                        }
+
+                        pressedNumber = null;
+                        setQuadrant()
+                    }, 300);
+
+                    e.preventDefault();
+                }
+
+                if (pressedQuadrant && e.key === 'Escape') {
+                    timeoutId = null;
+                    pressedNumber = null;
+                    setToReduce = false;
+                    setQuadrant();
+                }
+            });
+
+            document.body.addEventListener('keyup', (e) => {
+                if (e.key === 'Control') {
+                    document.querySelector('.mood-chart').classList.remove('show-tip');
+
+                    if (!timeoutId) {
+                        pressedNumber = null;
+                        setQuadrant();
+                    }
+                }
+            });
+
+            mountMoodMeter();
+        </script>
 
 
-    </div>
 
+        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+        <script>
+            window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+            ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
+        </script>
+        <script src="https://www.google-analytics.com/analytics.js" async></script>
+    </body>
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-
-<script>
-
-  var emoji = ['🤖', '👾', '🦄', '👋', '🦊', '🐶', '🐨', '🐼', '🐲', '🐙'];
-
-    $(document).ready(function(){
-      var i = 0;
-    $(".mood").click(function(e){
-      var random_emoji = emoji[i];
-      if (e.shiftKey) {
-          $(this).removeClass('selected'),
-          $(this).data().clickcount = 0;
-       }  else {
-         if ($(this).hasClass('selected')) {
-           $(this).data().clickcount++,
-           $(this).attr('data-clickcount',$(this).data().clickcount);
-           $(this).attr('data-content', $(this).data().emoji + "+" + $(this).data().clickcount);
-         }
-           else {
-        $(this).addClass('selected'),
-        $(this).attr('data-emoji',random_emoji);
-        $(this).attr('data-content',$(this).data().emoji);
-        if(i<9) { i++ } else {
-          i = Math.floor(Math.random() * emoji.length);
-        };
-        };
-      }
-    });
-  });
-
-
-</script>
-
-
-
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
-</body>
-
-</html>
+    </html>
