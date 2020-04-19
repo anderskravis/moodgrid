@@ -13,8 +13,8 @@ body {
 
     h1 {
         font-size: 32px;
-        font-family: 'Overlock', cursive;
-        color: rgba(0, 0, 0, 0.36);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: rgba(0, 0, 0, 0.3);
     }
 
     button {
@@ -85,8 +85,8 @@ body {
 
 
 .red {
-    background: #D90036;
-    color: rgba(255, 255, 255, 0.8);
+    background: #D81646;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .rainbow {
@@ -148,7 +148,7 @@ body {
 }
 
 .yellow {
-    background: #FFCB16;
+    background: #FFD421;
     color: rgba(0, 0, 0, 0.72);
 
     &:hover {
@@ -158,13 +158,13 @@ body {
 
 
 .blue {
-    background: #324096;
-    color: rgba(255, 255, 255, 0.8);
+    background: #5252C9;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .green {
-    background: #00AD1D;
-    color: rgba(255, 255, 255, 0.8);
+    background: #23B75A;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .selected {
@@ -172,6 +172,7 @@ body {
     color: white;
     transform: scale(1.02);
     z-index: 2;
+    outline: none;
 
     &::after {
         content: attr(data-content);
@@ -229,11 +230,11 @@ body {
 .tips {
     display: none;
     position: fixed;
-    color: gray;
+    color: #ffffff;
     text-align: left;
 
     border-radius: 4px;
-    background: white;
+    background: rgba(0,0,0,0.9);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.23);
     top: 70px;
     right: 12px;

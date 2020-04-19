@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>The Mood Meter</title>
+    <title>MoodGrid</title>
     <meta name="description" content="Mood Meter">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,7 +28,7 @@
 
         <section class="top">
             <h1>
-                The Mood Meter
+                MoodGrid
             </h1>
             <button id="toggleTips">Tips</button>
         </section>
@@ -207,12 +207,16 @@
 
 
 
-        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-        <script>
-            window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-            ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-        </script>
-        <script src="https://www.google-analytics.com/analytics.js" async></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-45807498-10"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-45807498-10');
+      </script>
+
     </body>
 
     </html>
