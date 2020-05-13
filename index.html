@@ -76,7 +76,7 @@
 			database.ref('mood').push({
 				moodColor,
 				moodName,
-				created: new Date
+				created: Date.now()
 			})
 		}
 
