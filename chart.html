@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+	<meta charset="utf-8">
+	<title>MoodGrid</title>
+	<meta name="description" content="Mood Meter">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="apple-touch-icon" href="icon.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	<link rel="stylesheet" href="scss/styles.css">
+	<meta name="theme-color" content="#fafafa">
+
+	<link href="https://fonts.googleapis.com/css?family=Overlock:900&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+	<section class="top">
+		<h1>
+			MoodGrid
+		</h1>
+		<button id="toggleTips">Tips</button>
+		<button class="chart"><a href="/index.html">Grid</a></button>
+	</section>
+
+	<div class="container">
+		<section class="mood-chart">
+			<canvas id="canvas" style="display: block; width: 943px; height: 350px;" width="943" height="350px"></canvas>
+		</section>
+	</div>
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase.js"></script>
+	<script src="https://www.unpkg.com/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
+
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyAvBoHxYKjWaaP5lWLTzps9w_nx-y7UmQw",
+			authDomain: "mood-meter-grid.firebaseapp.com",
+			databaseURL: "https://mood-meter-grid.firebaseio.com",
+			projectId: "mood-meter-grid",
+			storageBucket: "mood-meter-grid.appspot.com",
+			messagingSenderId: "248460628048",
+			appId: "1:248460628048:web:79cbe1abaef57caac80155"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+
+		// Get a reference to the database service
+		var database = firebase.database();
+
+		const formatter = new Intl.DateTimeFormat('en-CA');
+
+		const allMoods = { red: [], blue: [], green: [], yellow: []}
+		let allDates = []
+		database.ref('mood').once('value').then(function (snapshot) {
+			const moods = Object.values(snapshot.val()).reduce(function (all, mood) {
+				allDates.push(mood.created)
+				mood.created = formatter.format(mood.created)
+				all[mood.moodColor].push(mood)
+				return all
+			}, allMoods);
+
+			allDates = Array.from(new Set(allDates.sort().map(formatter.format)))
+
+			drawChart();
+		})
+
+		function getChartData() {
+			return {
+				labels: allDates,
+				datasets: Object.entries(allMoods).map(([moodColor, moods]) => (
+					{
+						label: moodColor,
+						borderColor: moodColor,
+						backgroundColor: moodColor,
+						fill: false,
+						data: allDates.map(date => {
+							return moods.filter(({created}) => created === date).length
+						}),
+						yAxisID: 'y-axis-1',
+					}
+				))
+			}
+		}
+
+		function drawChart() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = Chart.Line(ctx, {
+				data: getChartData(),
+				options: {
+					responsive: true,
+					hoverMode: 'index',
+					stacked: false,
+					title: {
+						display: true,
+						text: 'Mood over Time'
+					},
+					scales: {
+						yAxes: [{
+							type: 'linear',
+							display: true,
+							position: 'left',
+							id: 'y-axis-1',
+						}],
+					}
+				}
+			});
+		}
+	</script>
+
+
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45807498-10"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-45807498-10');
+	</script>
+
+</body>
+
+</html>
