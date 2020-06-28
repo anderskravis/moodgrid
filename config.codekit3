@@ -7,8 +7,24 @@
 		"uuidString": "2A642E64-EDC6-4B6C-97A5-C821BB725CA0"
 		}
 	],
-"creatorBuild": "31934",
+"creatorBuild": "32001",
 "files": {
+	"/.firebaserc": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/.firebaserc",
+		"oF": 0
+		},
+	"/.gitignore": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/.gitignore",
+		"oF": 0
+		},
 	"/_config.yml": {
 		"cB": 0,
 		"ft": 8192,
@@ -17,12 +33,44 @@
 		"oAP": "/_config.yml",
 		"oF": 0
 		},
+	"/chart.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/chart.html",
+		"oF": 0
+		},
+	"/database.rules.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/database.rules-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"/firebase.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/firebase-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"/index.html": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 0,
 		"oAP": "/index.html",
+		"oF": 0
+		},
+	"/quarantine.html": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/quarantine.html",
 		"oF": 0
 		},
 	"/README.md": {
@@ -673,6 +721,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"grouped-accessor-pairs": {
+			"active": 0,
+			"optionString": "'anyOrder'"
+			},
 		"guard-for-in": {
 			"active": 0,
 			"optionString": ""
@@ -849,6 +901,10 @@
 			"active": 1,
 			"optionString": "{'checkLoops': true}"
 			},
+		"no-constructor-return": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-continue": {
 			"active": 0,
 			"optionString": ""
@@ -874,6 +930,10 @@
 			"optionString": ""
 			},
 		"no-dupe-class-members": {
+			"active": 1,
+			"optionString": ""
+			},
+		"no-dupe-else-if": {
 			"active": 1,
 			"optionString": ""
 			},
@@ -1177,6 +1237,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"no-setter-return": {
+			"active": 1,
+			"optionString": ""
+			},
 		"no-shadow": {
 			"active": 0,
 			"optionString": "{'builtinGlobals': false, 'hoist': 'functions', 'allow': []}"
@@ -1380,6 +1444,10 @@
 		"prefer-destructuring": {
 			"active": 0,
 			"optionString": "{'array': true, 'object': true}, {'enforceForRenamedProperties': false}"
+			},
+		"prefer-exponentiation-operator": {
+			"active": 0,
+			"optionString": ""
 			},
 		"prefer-named-capture-group": {
 			"active": 0,

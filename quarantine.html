@@ -1,0 +1,255 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+	<meta charset="utf-8">
+	<title>MoodGrid</title>
+	<meta name="description" content="Mood Meter">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="apple-touch-icon" href="icon.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	<link rel="stylesheet" href="scss/styles.css">
+	<meta name="theme-color" content="#fafafa">
+
+	<link href="https://fonts.googleapis.com/css?family=Overlock:900&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+	<!--[if IE]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+	<!-- Add your site or application content here -->
+
+
+	<section class="top">
+		<h1>
+			MoodGrid
+		</h1>
+		<button id="toggleTips">Tips</button>
+		<button class="chart"><a href="/chart.html">Chart</a></button>
+	</section>
+
+	<div class="container">
+		<section class="mood-chart quarantine"></section>
+	</div>
+
+	<div class="tips">
+		<p>Tips:</p>
+		<ul>
+			<li>"Shift + Click" to remove a selection</li>
+			<li>"Ctrl" to highlight keyboard shortcuts values</li>
+			<li>
+				"R", "Y", "B", "G" to focus on the respective quadrant, then:
+				<ul>
+					<li>type the number to select the respective mood</li>
+					<li>press "-" and type the number to remove a selection on that mood</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase.js"></script>
+
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyAvBoHxYKjWaaP5lWLTzps9w_nx-y7UmQw",
+			authDomain: "mood-meter-grid.firebaseapp.com",
+			databaseURL: "https://mood-meter-grid.firebaseio.com",
+			projectId: "mood-meter-grid",
+			storageBucket: "mood-meter-grid.appspot.com",
+			messagingSenderId: "248460628048",
+			appId: "1:248460628048:web:79cbe1abaef57caac80155"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+
+		// Get a reference to the database service
+		var database = firebase.database();
+
+		function writeMood(moodColor, moodName) {
+			database.ref('mood').push({
+				moodColor,
+				moodName,
+				created: Date.now()
+			})
+		}
+
+
+		const emojis = ['🤖', '👾', '🦄', '👋', '🦊', '🐶', '🐨', '🐼', '🐲', '🐙'];
+		let emojiCount = 0;
+
+		document.querySelector('#toggleTips').addEventListener('click', () => {
+			document.querySelector('.tips').classList.toggle('show');
+		});
+
+		function resetMood(mood) {
+			mood.classList.remove('selected');
+			delete mood.dataset.clickcount;
+			delete mood.dataset.emoji;
+			delete mood.dataset.content;
+		}
+
+		function selectMood(mood, isReduce = false, isReset = false) {
+			mood.dataset.clickcount = isReduce
+				? parseInt(mood.dataset.clickcount || 0) - 1
+				: parseInt(mood.dataset.clickcount || 0) + 1;
+
+			if (isReset || mood.dataset.clickcount <= 0) {
+				resetMood(mood);
+				return;
+			}
+
+			writeMood(mood.dataset.moodcolor, mood.dataset.moodname);
+
+			if (mood.classList.contains('selected')) {
+
+				mood.dataset.content = `
+                        ${mood.dataset.emoji}
+                        ${mood.dataset.clickcount > 1 ? ` + ${mood.dataset.clickcount - 1}` : ''}
+                    `;
+				return;
+			}
+
+			mood.classList.add('selected');
+			mood.dataset.emoji = emojis[emojiCount];
+			emojiCount = emojiCount + 1 >= emojis.length
+				? Math.floor(Math.random() * emojis.length)
+				: (emojiCount + 1);
+
+			mood.dataset.content = mood.dataset.emoji;
+		}
+
+		function setQuadrant(keyValue) {
+			if (keyValue) {
+				pressedQuadrant = keyValue;
+				document.querySelector('.mood-chart').dataset.highlight = pressedQuadrant;
+				return;
+			}
+
+			pressedQuadrant = null;
+			delete document.querySelector('.mood-chart').dataset.highlight;
+		}
+
+		function mountMoodMeter() {
+			const moods = {
+				red: ['Furious', 'Protesting', 'A', 'B', 'C', 'D'],
+				yellow: ['Went outside', 'Happy', 'Social', 'Healthy', 'C', 'D'],
+				blue: ['Exhausted', 'Tired', 'Sick', 'Depressed', 'C', 'D'],
+				green: ['Cozy', 'Serene', 'Mellow', 'A', 'C', 'D'],
+			};
+
+			Object.keys(moods).forEach(color => {
+				const quadrant = document.createElement('div');
+				quadrant.classList.add('mood-quadrant');
+
+				moods[color].forEach((mood, index) => {
+					const moodBtn = document.createElement('button');
+					moodBtn.classList.add('mood', color);
+					moodBtn.dataset.tip = `${color[0].toUpperCase()}${index + 1}`;
+					moodBtn.dataset.moodcolor = color;
+					moodBtn.dataset.moodname = mood;
+					moodBtn.textContent = mood;
+					moodBtn.addEventListener('click', (e) => selectMood(e.target, e.shiftKey));
+					moodBtn.addEventListener('keydown', (e) => {
+						if (e.key === 'Delete') {
+							resetMood(e.target);
+						};
+
+						if (e.key === 'Backspace' || e.key === '-') {
+							selectMood(e.target, true);
+						};
+					});
+
+					quadrant.append(moodBtn);
+				});
+
+				document.querySelector('.mood-chart').append(quadrant);
+			})
+		}
+
+		let pressedQuadrant = null;
+		let pressedNumber = null;
+		let timeoutId = null;
+		let setToReduce = false;
+
+		document.body.addEventListener('keydown', (e) => {
+			if (e.ctrlKey) {
+				document.querySelector('.mood-chart').classList.add('show-tip');
+			}
+
+			if (['R', 'Y', 'B', 'G'].includes(e.key.toUpperCase())) {
+				setQuadrant(e.key.toUpperCase())
+			}
+
+			if (pressedQuadrant && e.key === '-') {
+				setToReduce = true;
+			}
+
+			if (pressedQuadrant && parseInt(e.key) <= 9) {
+				pressedNumber = `${pressedNumber || ''}${e.key}`;
+
+				if (timeoutId) {
+					clearTimeout(timeoutId);
+				}
+
+				timeoutId = setTimeout(() => {
+					const mood = document.querySelector(`[data-tip=${pressedQuadrant}${pressedNumber}]`);
+
+					if (setToReduce) {
+						selectMood(mood, true);
+						setToReduce = false;
+					} else {
+						selectMood(mood);
+					}
+
+					pressedNumber = null;
+					setQuadrant()
+				}, 300);
+
+				e.preventDefault();
+			}
+
+			if (pressedQuadrant && e.key === 'Escape') {
+				timeoutId = null;
+				pressedNumber = null;
+				setToReduce = false;
+				setQuadrant();
+			}
+		});
+
+		document.body.addEventListener('keyup', (e) => {
+			if (e.key === 'Control') {
+				document.querySelector('.mood-chart').classList.remove('show-tip');
+
+				if (!timeoutId) {
+					pressedNumber = null;
+					setQuadrant();
+				}
+			}
+		});
+
+		mountMoodMeter();
+	</script>
+
+
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45807498-10"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-45807498-10');
+	</script>
+
+</body>
+
+</html>
