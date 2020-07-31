@@ -104,8 +104,8 @@
 		var ctx = document.querySelector('canvas').getContext("2d");
 		function getChartDataPositiveOnly(data) {
 			var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-			gradient.addColorStop(0, 'rgba(0,255,0,.3)');
-			gradient.addColorStop(1, 'rgba(255,0,0,.3)');
+			gradient.addColorStop(0, 'rgba(0,255,0,.1)');
+			gradient.addColorStop(1, 'rgba(255,0,0,.1)');
 
 			const trendForward = [...data.positive].map((data, index, arr) => index < 3 ? data : squareProject(arr.slice(0, index + 1), index + 1))
 			const trendReverse = [...data.positive].reverse().map((data, index, arr) => index < 3 ? data : squareProject(arr.slice(0, index + 1), index + 1)).reverse();
@@ -127,9 +127,9 @@
 						data: trend,
 						yAxisID: 'y-axis-1',
 						trendlineLinear: {
-							style: "rgba(0,105,180, .8)",
+							style: "rgba(255,0,0, .8)",
 							lineStyle: "dotted|solid",
-							width: 5
+							width: 2
 						}
 					},
 					{
