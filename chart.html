@@ -126,6 +126,11 @@
 						pointHoverBorderColor: 'blue',
 						data: trend,
 						yAxisID: 'y-axis-1',
+						trendlineLinear: {
+							style: "rgba(0,105,180, .8)",
+							lineStyle: "dotted|solid",
+							width: 5
+						}
 					},
 					{
 						label: 'Mood',
@@ -138,11 +143,6 @@
 						pointHoverBorderColor: gradient,
 						data: data.positive,
 						yAxisID: 'y-axis-1',
-						trendlineLinear: {
-							style: "rgba(255,105,180, .8)",
-							lineStyle: "dotted|solid",
-							width: 2
-						}
 					},
 				]
 			}
