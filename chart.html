@@ -22,7 +22,7 @@
 
 	<section class="top">
 		<h1>
-			MoodGrid
+			MoodGrid Chart
 		</h1>
 		<button id="toggleTips">Tips</button>
 		<button class="chart"><a href="/index.html">Grid</a></button>
@@ -37,6 +37,7 @@
 	<!-- The core Firebase JS SDK is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/7.14.3/firebase.js"></script>
 	<script src="https://www.unpkg.com/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
+	<script src="https://unpkg.com/chartjs-plugin-trendline@0.1.3/src/chartjs-plugin-trendline.js"></script>
 
 	<script>
 		// Your web app's Firebase configuration
@@ -57,7 +58,7 @@
 
 		const formatter = new Intl.DateTimeFormat('en-CA');
 
-		const allMoods = { red: [], blue: [], green: [], yellow: []}
+		const allMoods = { red: [], blue: [], green: [], yellow: [] }
 		let allDates = []
 		database.ref('mood').once('value').then(function (snapshot) {
 			const moods = Object.values(snapshot.val()).reduce(function (all, mood) {
@@ -69,31 +70,126 @@
 
 			allDates = Array.from(new Set(allDates.sort().map(formatter.format)))
 
-			drawChart();
+			drawChart(normalizeData());
 		})
 
-		function getChartData() {
+		function normalizeData() {
+			const normalizedData = { red: [], blue: [], green: [], yellow: [], positive: [], trend: [] }
+			allDates.forEach((date, index) => {
+				let total = 0;
+				Object.entries(allMoods).map(([moodColor, moods]) => {
+					total += moods.filter(({ created }) => created === date).length
+				})
+				Object.entries(allMoods).map(([moodColor, moods]) => {
+					const moodTotalForDate = moods.filter(({ created }) => created === date).length;
+					normalizedData[moodColor].push(toPercentage(moodTotalForDate, total));
+				})
+
+				normalizedData.positive[index] = normalizedData.green[index] + normalizedData.yellow[index];
+				buildTrend(normalizedData.positive, normalizedData.trend)
+			})
+
+			return normalizedData;
+		}
+
+		function buildTrend(positive, trend) {
+			trend[positive.length - 1] = positive.reduce((acc, cur) => acc += cur, 0) / positive.length;
+		}
+
+		function toPercentage(value, total) {
+			return Math.round((value / total) * 100);
+		}
+
+
+		var ctx = document.querySelector('canvas').getContext("2d");
+		function getChartDataPositiveOnly(data) {
+			var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+			gradient.addColorStop(0, 'rgba(0,255,0,.3)');
+			gradient.addColorStop(1, 'rgba(255,0,0,.3)');
+
+			const trendForward = [...data.positive].map((data, index, arr) => index < 3 ? data : squareProject(arr.slice(0, index + 1), index + 1))
+			const trendReverse = [...data.positive].reverse().map((data, index, arr) => index < 3 ? data : squareProject(arr.slice(0, index + 1), index + 1)).reverse();
+			const half = Math.floor(trendReverse.length / 2)
+			const trend = [...trendReverse.slice(0, half), ...trendForward.slice(half)];
+
 			return {
 				labels: allDates,
-				datasets: Object.entries(allMoods).map(([moodColor, moods]) => (
+				datasets: [
 					{
-						label: moodColor,
-						borderColor: moodColor,
-						backgroundColor: moodColor,
-						fill: false,
-						data: allDates.map(date => {
-							return moods.filter(({created}) => created === date).length
-						}),
+						label: 'Median',
+						fill: true,
+						borderColor: 'blue',
+						fillColor: 'blue',
+						pointBorderColor: 'blue',
+						pointBackgroundColor: 'blue',
+						pointHoverBackgroundColor: 'blue',
+						pointHoverBorderColor: 'blue',
+						data: trend,
 						yAxisID: 'y-axis-1',
-					}
-				))
+					},
+					{
+						label: 'Mood',
+						fill: false,
+						borderColor: gradient,
+						fillColor: gradient,
+						pointBorderColor: gradient,
+						pointBackgroundColor: gradient,
+						pointHoverBackgroundColor: gradient,
+						pointHoverBorderColor: gradient,
+						data: data.positive,
+						yAxisID: 'y-axis-1',
+						trendlineLinear: {
+							style: "rgba(255,105,180, .8)",
+							lineStyle: "dotted|solid",
+							width: 2
+						}
+					},
+				]
 			}
 		}
 
-		function drawChart() {
-			var ctx = document.getElementById('canvas').getContext('2d');
+		function SquareFitter() {
+			this.count = 0;
+			this.sumX = 0;
+			this.sumX2 = 0;
+			this.sumX3 = 0;
+			this.sumX4 = 0;
+			this.sumY = 0;
+			this.sumXY = 0;
+			this.sumX2Y = 0;
+		}
+
+		SquareFitter.prototype = {
+			'add': function (x, y) {
+				this.count++;
+				this.sumX += x;
+				this.sumX2 += x * x;
+				this.sumX3 += x * x * x;
+				this.sumX4 += x * x * x * x;
+				this.sumY += y;
+				this.sumXY += x * y;
+				this.sumX2Y += x * x * y;
+			},
+			'project': function (x) {
+				var det = this.count * this.sumX2 * this.sumX4 - this.count * this.sumX3 * this.sumX3 - this.sumX * this.sumX * this.sumX4 + 2 * this.sumX * this.sumX2 * this.sumX3 - this.sumX2 * this.sumX2 * this.sumX2;
+				var offset = this.sumX * this.sumX2Y * this.sumX3 - this.sumX * this.sumX4 * this.sumXY - this.sumX2 * this.sumX2 * this.sumX2Y + this.sumX2 * this.sumX3 * this.sumXY + this.sumX2 * this.sumX4 * this.sumY - this.sumX3 * this.sumX3 * this.sumY;
+				var scale = -this.count * this.sumX2Y * this.sumX3 + this.count * this.sumX4 * this.sumXY + this.sumX * this.sumX2 * this.sumX2Y - this.sumX * this.sumX4 * this.sumY - this.sumX2 * this.sumX2 * this.sumXY + this.sumX2 * this.sumX3 * this.sumY;
+				var accel = this.sumY * this.sumX * this.sumX3 - this.sumY * this.sumX2 * this.sumX2 - this.sumXY * this.count * this.sumX3 + this.sumXY * this.sumX2 * this.sumX - this.sumX2Y * this.sumX * this.sumX + this.sumX2Y * this.count * this.sumX2;
+				return (offset + x * scale + x * x * accel) / det;
+			}
+		};
+
+		function squareProject(data, size) {
+			var fitter = new SquareFitter();
+			for (var i = 0; i < data.length; i++) {
+				fitter.add(i, data[i]);
+			}
+			return Math.round(fitter.project(size));
+		}
+
+		function drawChart(data) {
 			window.myLine = Chart.Line(ctx, {
-				data: getChartData(),
+				data: getChartDataPositiveOnly(data),
 				options: {
 					responsive: true,
 					hoverMode: 'index',
@@ -108,6 +204,9 @@
 							display: true,
 							position: 'left',
 							id: 'y-axis-1',
+							ticks: {
+								callback: value => `${value}%`
+							}
 						}],
 					}
 				}
