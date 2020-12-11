@@ -74,6 +74,11 @@
 		var database = firebase.database();
 
 		function writeMood(moodColor, moodName) {
+			// Do not save it is not the live site
+			if (window.location.hostname !== 'moodgrid.xyz') {
+				return;
+			}
+
 			database.ref('mood').push({
 				moodColor,
 				moodName,
@@ -81,6 +86,37 @@
 			})
 		}
 
+		let lastMoodClicked;
+		let lastMoodClickedCount = 0;
+		const countToBeOnFire = 3;
+		function countOnFire(mood, isReduce) {
+			if (lastMoodClicked === mood.dataset.moodname) {
+				lastMoodClickedCount += (isReduce ? -1 : 1);
+			} else {
+				lastMoodClicked = mood.dataset.moodname;
+				lastMoodClickedCount = 1;
+
+				// Remove old on-fire element if exists
+				const oldFire = document.querySelector('.on-fire');
+				if (oldFire) {
+					oldFire.parentElement.textContent = oldFire.parentElement.dataset.moodname;
+				}
+
+				// Add the on-fire element to the current mood
+				const fire = document.createElement('span');
+				fire.classList.add('on-fire');
+				mood.append(fire);
+			}
+
+			let fire = mood.querySelector('.on-fire');
+			fire.textContent = '';
+			if (lastMoodClickedCount >= countToBeOnFire) {
+				const fireCount = lastMoodClickedCount - countToBeOnFire;
+				Array.from({ length: (fireCount > 7 ? 7 : fireCount) }, (x, i) => {
+					fire.append('🔥');
+				});
+			}
+		}
 
 		const emojis = ['🤖', '👾', '🦄', '👋', '🦊', '🐶', '🐨', '🐼', '🐲', '🐙'];
 		let emojiCount = 0;
@@ -94,6 +130,14 @@
 			delete mood.dataset.clickcount;
 			delete mood.dataset.emoji;
 			delete mood.dataset.content;
+
+			lastMoodClicked = null;
+			lastMoodClickedCount = 0;
+			const fire = document.querySelector('.on-fire');
+			if (fire) {
+				fire.remove();
+			}
+
 		}
 
 		function selectMood(mood, isReduce = false, isReset = false) {
@@ -107,6 +151,7 @@
 			}
 
 			writeMood(mood.dataset.moodcolor, mood.dataset.moodname);
+			countOnFire(mood, isReduce);
 
 			if (mood.classList.contains('selected')) {
 
@@ -156,7 +201,10 @@
 					moodBtn.dataset.moodcolor = color;
 					moodBtn.dataset.moodname = mood;
 					moodBtn.textContent = mood;
-					moodBtn.addEventListener('click', (e) => selectMood(e.target, e.shiftKey));
+					moodBtn.addEventListener('click', (e) => {
+						const target = e.composedPath().find(el => el.tagName === 'BUTTON');
+						selectMood(target, e.shiftKey)
+					});
 					moodBtn.addEventListener('keydown', (e) => {
 						if (e.key === 'Delete') {
 							resetMood(e.target);
