@@ -86,33 +86,14 @@
 			})
 		}
 
-		let lastMoodClicked;
-		let lastMoodClickedCount = 0;
 		const countToBeOnFire = 3;
 		function countOnFire(mood, isReduce) {
-			if (lastMoodClicked === mood.dataset.moodname) {
-				lastMoodClickedCount += (isReduce ? -1 : 1);
-			} else {
-				lastMoodClicked = mood.dataset.moodname;
-				lastMoodClickedCount = 1;
-
-				// Remove old on-fire element if exists
-				const oldFire = document.querySelector('.on-fire');
-				if (oldFire) {
-					oldFire.parentElement.textContent = oldFire.parentElement.dataset.moodname;
-				}
-
-				// Add the on-fire element to the current mood
-				const fire = document.createElement('span');
-				fire.classList.add('on-fire');
-				mood.append(fire);
-			}
-
-			let fire = mood.querySelector('.on-fire');
+			const fire = mood.querySelector('.on-fire');
 			fire.textContent = '';
-			if (lastMoodClickedCount >= countToBeOnFire) {
-				const fireCount = lastMoodClickedCount - countToBeOnFire;
-				Array.from({ length: (fireCount > 7 ? 7 : fireCount) }, (x, i) => {
+
+			const fireCount = (mood.dataset.clickcount || 0) - countToBeOnFire;
+			if (fireCount > 0) {
+				Array.from({ length: (fireCount > 6 ? 6 : fireCount) }, (x, i) => {
 					fire.append('🔥');
 				});
 			}
@@ -131,11 +112,9 @@
 			delete mood.dataset.emoji;
 			delete mood.dataset.content;
 
-			lastMoodClicked = null;
-			lastMoodClickedCount = 0;
 			const fire = document.querySelector('.on-fire');
 			if (fire) {
-				fire.remove();
+				fire.textContent = '';
 			}
 
 		}
@@ -214,6 +193,11 @@
 							selectMood(e.target, true);
 						};
 					});
+
+					// Add the on-fire element to the current mood
+					const fire = document.createElement('span');
+					fire.classList.add('on-fire');
+					moodBtn.append(fire);
 
 					quadrant.append(moodBtn);
 				});
