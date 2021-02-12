@@ -1,2 +1,2 @@
-# moodmeter
+# moodgrid
 Web-based Mood Meter
